@@ -5,8 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Facebook\Facebook;
 use App\User;
-use Config;//Обязательно. Именно так, т.к. В алиасах он добавлен
-//use App\Config\facebookhelper;
+use Config;
 use Illuminate\Support\Facades\Auth;
 
 class LoginFacebookController extends Controller
@@ -24,7 +23,7 @@ class LoginFacebookController extends Controller
         $helper = $fb->getRedirectLoginHelper();
         dd($helper);
         $permissions = ['email']; // Optional permissions
-        $loginUrl = $helper->getLoginUrl('http://musicsite.local/', $permissions);
+        $loginUrl = $helper->getLoginUrl('http://'.$_SERVER['HTTP_HOST'].'/', $permissions);
         echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
     }
 
