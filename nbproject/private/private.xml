@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/xampp/htdocs/musicsite/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/LoginFacebookController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/migrations/2016_05_28_085248_create_songs_table.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/migrations/2016_05_28_085249_create_table_playlists.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/migrations/2016_05_24_130820_create_albums_table.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/AlbumsController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/songs/edit.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/songs/formforaddalbum.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/storage/framework/views/7e8493bb10340f379e18c597c3cd747171d73ec5.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/songs/index.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/config/auth.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/layouts/main.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Middleware/LangMiddleware.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/songs/form.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/songs/create.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/CodeController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/Auth/AuthController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/storage/framework/views/88779a5bb3cb4c78ad8fa29382205da2a928a676.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/seeds/ArtistTableSeeder.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/routes.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/PlaylistController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/auth/register.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/seeds/SongTableSeeder.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Providers/RouteServiceProvider.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/resources/views/auth/login.blade.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/config/facebook.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/Controller.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/config/app.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/database/seeds/AlbumTableSeeder.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/SongsController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/LanguageController.php</file>
+        </group>
+    </open-files>
+</project-private>
