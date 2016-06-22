@@ -157,6 +157,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Yangqi\Htmldom\HtmldomServiceProvider::class,
 
     ],
 
@@ -205,6 +206,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
          'Form' => Collective\Html\FormFacade::class,
       'Html' => Collective\Html\HtmlFacade::class,
+        'Htmldom' => Yangqi\Htmldom\Htmldom::class,
 
     ],
 

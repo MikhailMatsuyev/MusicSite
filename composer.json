@@ -9,7 +9,10 @@
         "laravel/framework": "5.2.*",
         "anhskohbo/no-captcha": "2.*",
         "laravelcollective/html": "^5.2",
-        "facebook/php-sdk-v4": "^5.2"
+        "facebook/php-sdk-v4": "^5.2",
+     
+        "yangqi/htmldom": "dev-master"
+    
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
