@@ -3,23 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/musicsite/composer.json</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/PlaylistController.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Playlist.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Code.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/AlbumsController.php</file>
+            <file>file:/D:/xampp/htdocs/musicsite/public/uploads/FA_image_00036483.jpg</file>
+            <file>file:/D:/xampp/htdocs/musicsite/public/uploads/aviato-iphone-ipad-huellen.jpg</file>
             <file>file:/D:/xampp/htdocs/musicsite/app/Artist.php</file>
             <file>file:/D:/xampp/htdocs/musicsite/app/Console/Commands/ParseSiteAD.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/database/migrations/2016_06_21_152341_add_photo_bio_to_artists_table.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/User.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Console/Kernel.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/HomeController.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Album.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Console/Commands/Inspire.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/config/app.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/CodeController.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Song.php</file>
-            <file>file:/D:/xampp/htdocs/musicsite/app/Http/Controllers/SongsController.php</file>
         </group>
     </open-files>
 </project-private>

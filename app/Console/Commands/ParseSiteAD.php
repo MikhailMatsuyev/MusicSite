@@ -34,7 +34,6 @@ class ParseSiteAD extends Command
     {
         parent::__construct();
         $this->upload_dir = base_path() . '/public/uploads';
-        $this->target_page = new Htmldom();
         $this->site='http://www.artistdirect.com';
     }
     
@@ -48,14 +47,14 @@ class ParseSiteAD extends Command
         }
         $parser_date['photo']=end($file);
         Artist::create($parser_date);
+        
     }
     
     private function parseLinksFromStartPage ()
     {
 
         $connection = curl_init('http://www.artistdirect.com/music/pop/artists/877');
-        $pars=array();
-        $info=array();
+        
         //Устанавливаем адрес для подключения, по умолчанию методом GET
         //curl_ - с его помощью подключимся к нужному сайту и спарсим все
         //адреса страниц, информацию с которых нужно сохранить.
@@ -80,10 +79,11 @@ class ParseSiteAD extends Command
          
         //Завершаем сеанс
         curl_close($connection);
-        $this->target_page->load($html);
+      
         //на целевой странице увидели, что ссылки хранятся в абзаце с class=media 
-        $hrefer=$this->target_page->find('p[class=media]');
-        return $hrefer;
+        
+        $hrefer=preg_match_all("|<p class=\"media\">.*?href=\"(.*)\"|", $html, $matches); 
+        return $matches[1];
     }
     
     
@@ -91,20 +91,23 @@ class ParseSiteAD extends Command
     {
         $hrefer=$this->parseLinksFromStartPage();
         $mh = curl_multi_init(); //создаем набор дескрипторов cURL
+        
         foreach ($hrefer as $i=>$v){
-            $link = $this->site.$v->first_child ()->href;
+            $link = $this->site.$v;
             $ch[$i] = curl_init($link);
             curl_setopt($ch[$i], CURLOPT_HEADER, 0);          //Не включать заголовки в ответ
             curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, 1);  //Убираем вывод данных в браузер
             curl_setopt($ch[$i], CURLOPT_CONNECTTIMEOUT, 30); //Таймаут соединения
             curl_multi_add_handle($mh, $ch[$i]);
         }
+        
         while (curl_multi_exec($mh, $running) == CURLM_CALL_MULTI_PERFORM); //Запускаем соединения
         usleep (100000);  //100мс. 
+        $i=1;
         $status = curl_multi_exec($mh, $running);
         //Пока есть незавершенные соединения и нет ошибок мульти-cURL
         while ($running > 0 && $status == CURLM_OK) {
-            $sel = curl_multi_select($mh, 4); //ждем активность на файловых дескрипторах. Таймаут 4сек
+            curl_multi_select($mh, 4); //ждем активность на файловых дескрипторах. Таймаут 4сек
             usleep (500000);                 //500мс. 
             //Вдруг cURL хочет быть вызвана немедленно опять..
             while (($status = curl_multi_exec($mh, $running)) == CURLM_CALL_MULTI_PERFORM);
@@ -114,42 +117,37 @@ class ParseSiteAD extends Command
                 $easyHandle = $info['handle'];    //простой дескриптор cURL
                 $one = curl_getinfo($easyHandle); //получаем инфу по каждому простому дескриптору
                 $httpCode = $one['http_code'];
-                $text = "<br>"."URL: ${one['url']} | HTTP code: $httpCode";
-                flush(); //Сразу выводим инфу в браузер
+                
                 if ($httpCode == 200) {    //если файл/страница успешно получена
-                    $html=null;
+                    echo  "\n".$i++." URL: ${one['url']} | HTTP code: $httpCode";
+ 
                     $tasks=curl_multi_getcontent($easyHandle);
 
-                    $html = new Htmldom();
-                    $html->load($tasks);
-
-                    $photo=$html->find('div[id=artistPhoto]');
-
-                    foreach ($photo as $key){
-                        $title=$key->first_child ()->title;
-                        $src=$key->first_child ()->first_child ()->src;
-                        $pars['name']=$title;
-                        $pars['photo']=$src;   
-                    }
-
-                    $bio=$html->find('div[class=content]');
-                    foreach ($bio as $key)
-                    {
-                        //на странице есть еще один класс "content", избавляемся от него
-                        if ($key->first_child ()->tag==="li"){
-                            continue;
-                        } 
-                        $pars['bio']=$key->innertext;
-                    }
-
+                    if (preg_match("|<div id=\"artistPhoto\">.*?src=\"(.*)\"\s|", $tasks, $photo_src)){
+                       var_dump($pars['photo']=$photo_src[1]); 
+                    }else{
+                       var_dump($pars['photo']="out photo"); 
+                    };
+                    
+                    if (preg_match("|<div id=\"artistPhoto\"><a title=\"(.*)\"\shref|", $tasks, $title)){
+                       var_dump($pars['name']=$title[1]); 
+                    }else{
+                       var_dump($pars['name']="out title"); 
+                    };
+                    
+                    if (preg_match("|<div class=\"content\">(.*)<a\shref|", $tasks, $bio)){
+                       var_dump($pars['bio']=$bio[1]); 
+                    }else{
+                       var_dump($pars['bio']="out bio"); 
+                    };
+                    
                     $this->store($pars);
 
                 }elseif($httpCode >= 400){  
-                    $text = "<br>"."URL: ${one['url']} | HTTP code: $httpCode";
+                    echo "\n"."URL: ${one['url']} | HTTP code: $httpCode";
                 }
                 curl_multi_remove_handle($mh, $easyHandle);
                 curl_close($easyHandle);
-
             }
         } 
     }
