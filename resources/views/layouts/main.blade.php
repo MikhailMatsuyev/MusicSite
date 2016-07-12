@@ -86,7 +86,7 @@
                 
                 @if (!Auth::guest())
                   <div class="nav navbar-right navbar-btn" style="margin-right: 20px;">
-                    <a href="{{route('api.playlists.create').'?api_token='.Auth::user()->api_token}}" class="btn btn-default">
+                    <a href="{{route('api.playlists.create',['api_token'=>Auth::user()->api_token])}}" class="btn btn-default">
                       <i class="glyphicon glyphicon-plus"></i> 
                       <?=trans('test.AddPlaylist')?>
                     </a>

@@ -3,6 +3,7 @@
 Route::group(['middleware' => 'lang_middleware'], function()
 {
     Route::resource('/songs', 'SongsController',  ['except' => ['show']]);
+    
     Route::get('/', 'SongsController@index');//route
     Route::post('/language', array ( 
             'as'=>'language-chooser',

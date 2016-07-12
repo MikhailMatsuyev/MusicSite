@@ -23,7 +23,6 @@
         <div class="form-group">
             <label for="artist" class="control-label col-md-3">Artist</label>
             <div class="col-md-8">
-                <!--{!! Form::text("company", null, ['class' => 'form-control']) !!}-->
                 {!! Form::select("artist_id", $artists, null, ['class' => 'form-control']) !!}
                 
             </div>
