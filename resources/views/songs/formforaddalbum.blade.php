@@ -7,7 +7,7 @@
     <strong>Add album</strong>
   </div>
 {!! Form::open(['route' => 'albums.store', 'files' => true]) !!}  
-<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+
 <div class="panel-body">
     <div class="form-horizontal">
       <div class="row">
@@ -73,8 +73,8 @@
     </div>
   </div>
 
-<input type="hidden" name="_token" value="{{csrf_token()}}"/>
-  
+
+
 
   {!! Form::close() !!}
 

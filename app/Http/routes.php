@@ -34,9 +34,10 @@ Route::group(['middleware' => 'lang_middleware'], function()
     ]);
 
     Route::group(['prefix'=>'api', 'middleware'=>'auth:api'], function(){
-	Route::resource('playlists', 'PlaylistController');
+
+	    Route::resource('playlists', 'PlaylistController');
+
     });
     
     Route::get('callback', 'LoginFacebookController@callback');//route
-});    
-        
+});

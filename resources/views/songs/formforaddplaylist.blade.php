@@ -4,11 +4,13 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <strong>Add playlist</strong>
+    <strong>Add playlist!!!</strong>
   </div>
-{!! Form::open(['route' => 'albums.store', 'files' => true]) !!}
-  
-<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+  {{--{!! Form::open(['route' => 'albums.store', 'files' => true]) !!}--}}
+      {!! Form::open(['route' => ['api.playlists.store','api_token'=>Auth::user()->api_token]]) !!}
+
+
+
 
 <div class="panel-body">
     <div class="form-horizontal">
@@ -25,6 +27,7 @@
             </div>
           @endif
 
+
           <div class="form-group">
             <label for="Name" class="control-label col-md-3">Name</label>
             <div class="col-md-8">
@@ -35,7 +38,8 @@
           <div class="form-group">
             <label for="Song" class="control-label col-md-3">Song</label>
             <div class="col-md-8">
-              {!! Form::select("song_id", $songs, null, ['class' => 'form-control']) !!}
+              {!! Form::select("song_id", $songs, null, array('multiple' => true,'name'=>'song_id_mult[]','class' => 'form-control')) !!}
+
             </div>
           </div>
         </div>

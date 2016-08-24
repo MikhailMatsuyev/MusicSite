@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Song;
+use App\Playlist;
+use Auth;
+
 class PlaylistController extends Controller
 {
     /**
@@ -16,7 +19,10 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(
+            Playlist::where('user_id', Auth::guard('api')->id())
+                ->get()
+        );
     }
 
     /**
@@ -38,7 +44,19 @@ class PlaylistController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+
+        $data['name'] = $request->get("name");
+
+        $data['user_id'] = Auth::guard('api')->id();
+
+        foreach ($_POST['song_id_mult'] as $y){
+            $data['song_id'] = $y;
+            Playlist::create($data);
+        }
+        return back()->with("message", "Playlist Saved!");
     }
 
     /**

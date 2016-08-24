@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+
 use App\Album;
 use App\Artist;
 class AlbumsController extends Controller
@@ -36,12 +36,12 @@ class AlbumsController extends Controller
             'artist_id' => 'required',
     	]);
 
-        $data = $this->get_request($request);
+        $data = $this->getRequest($request);
         Album::create($data);
         return back()->with("message", "Album Saved!");
         
     }
-    private function get_request(Request $request)
+    private function getRequest(Request $request)
     {
       $data = $request->all();
       
@@ -70,7 +70,7 @@ class AlbumsController extends Controller
     }
     
     private function getArtistsAll()
-    {// Получение всех названий компаний из таблицы компаний
+    {// Получение всех названий артистов из таблицы Артисты
     // по именам, т.к Artist::all() возвращает все колонки, не только имя   
         $artists = [];
         foreach(Artist::all() as $artist) 
