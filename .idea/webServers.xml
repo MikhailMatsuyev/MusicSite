@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3bfc24dc-b64b-408e-a1b5-03c612fd6339" name="zettahostcommusicbox" url="http://musicbox.scienceontheweb.net">
+        <fileTransfer host="musicbox.scienceontheweb.net" port="21" password="dfd0dfcfdfdedfdedfcbdfc2dfc5dfd9dfdedf9edf98df9adf9edf9cdf98df98" username="2189145">
+          <advancedOptions>
+            <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
