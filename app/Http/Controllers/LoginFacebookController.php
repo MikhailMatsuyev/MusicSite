@@ -10,18 +10,36 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginFacebookController extends Controller
 {
-    public function login() 
+
+    public function __construct()
     {
+
         if (!session_id()) {
             session_start();
-        }   
+        } 
+         $this->fb = new Facebook([
+            'app_id' => Config::get('facebookhelper.app_id'), // Replace {app-id} with your app id
+            'app_secret' => Config::get('facebookhelper.app_secret'),
+            'default_graph_version' => Config::get('facebookhelper.default_graph_version'),
+        ]);
+
+
+        //$this->middleware('auth');
+    }
+
+    public function login() 
+    {/*
+        if (!session_id()) {
+            session_start();
+        }*/ 
+        /*  
         $fb = new Facebook([
             'app_id' => Illuminate\Support\Facades\Config::get('facebookhelper.app_id'), // Replace {app-id} with your app id
             'app_secret' => Config::get('facebookhelper.app_secret'),
             'default_graph_version' => Config::get('facebookhelper.default_graph_version'),
-        ]);
-        $helper = $fb->getRedirectLoginHelper();
-        dd($helper);
+        ]);*/
+        $helper = $this->fb->getRedirectLoginHelper();
+        //dd($helper);
         $permissions = ['email']; // Optional permissions
         $loginUrl = $helper->getLoginUrl('http://'.$_SERVER['HTTP_HOST'].'/', $permissions);
         echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
@@ -31,14 +49,14 @@ class LoginFacebookController extends Controller
     {
         if (!session_id()) {
             session_start();
-        }
+        }/*
         $fb = new Facebook([
             'app_id' => config::get('facebookhelper.app_id'), // Replace {app-id} with your app id
             'app_secret' => Config::get('facebookhelper.app_secret'),
             'default_graph_version' => Config::get('facebookhelper.default_graph_version'),
-        ]);
+        ]);*/
 
-        $helper = $fb->getRedirectLoginHelper();
+        $helper = $this->fb->getRedirectLoginHelper();
 
         try {
             $accessToken = $helper->getAccessToken();
@@ -71,7 +89,7 @@ class LoginFacebookController extends Controller
         var_dump($accessToken->getValue());
 
         // The OAuth 2.0 client handler helps us manage access tokens
-        $oAuth2Client = $fb->getOAuth2Client();
+        $oAuth2Client = $this->fb->getOAuth2Client();
 
         // Get the access token metadata from /debug_token
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
@@ -103,8 +121,8 @@ class LoginFacebookController extends Controller
     // You can redirect them to a members-only page.
     //header('Location: https://example.com/members.php');
         
-        $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
-        $user=$fb->get('/me?fields=name,email')->getGraphUser();
+        $this->fb->setDefaultAccessToken($_SESSION['fb_access_token']);
+        $user=$this->fb->get('/me?fields=name,email')->getGraphUser();
         
         $array = [
             "name" => $user["name"],

@@ -2,8 +2,26 @@
 
 Route::group(['middleware' => 'lang_middleware'], function()
 {
-    Route::resource('/songs', 'SongsController',  ['except' => ['show']]);
+	Route::get('/songs/show/album/{album_id?}/artist/{artist_id?}','SongsController@show', 
+		function ($album_id=null,$artist_id=null)
+		{
+	        return isset($album_id)? $artist_id: $album_id;
+        }
+		/*[
+		'as'=>'songs.show',
+        'uses'=>'SongsController@show' 
+		]*/)->name('songs.show');
+	/*
+	Route::get('/songs/show/album/{album_id}/artist/{artist_id}', [
+	        'as'=>'songs.show',
+            'uses'=>'SongsController@show'    
+        ]);
+	*/
+    Route::resource('/songs', 'SongsController',['except' => ['show']]);
+	//users/{userId}/comments/{commentId}
     
+	
+	
     Route::get('/', 'SongsController@index');//route
     Route::post('/language', array ( 
             'as'=>'language-chooser',

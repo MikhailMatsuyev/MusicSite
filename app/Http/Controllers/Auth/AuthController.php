@@ -13,6 +13,7 @@ use App\Http\Controllers\CodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Facebook\Facebook;
+use Config;
 
 class AuthController extends Controller
 {
@@ -35,6 +36,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    private $fb;
 
     /**
      * Create a new authentication controller instance.
@@ -43,6 +45,14 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        if (!session_id()) {
+            session_start();
+        }
+        $this->fb = new Facebook([
+            'app_id' => Config::get('facebookhelper.app_id'), // Replace {app-id} with your app id
+            'app_secret' => Config::get('facebookhelper.app_secret'),
+            'default_graph_version' => Config::get('facebookhelper.default_graph_version'),
+        ]);
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
@@ -70,6 +80,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -80,16 +91,16 @@ class AuthController extends Controller
     
     public function showLoginForm()
     {
-        if (!session_id()) {
+        /*if (!session_id()) {
             session_start();
-        }   
+        }/*   
         $fb = new Facebook([
-            'app_id' => '195610747501770', // Replace {app-id} with your app id
-            'app_secret' => '95a30b28888562fa0789ec51d987f5e3',
-            'default_graph_version' => 'v2.6',
-        ]);
+            'app_id' => '1676867382627174', // Replace {app-id} with your app id
+            'app_secret' => '4be39d5f776f82e346a6cc62d1cba253',
+            'default_graph_version' => 'v2.8',
+        ]);*/
         
-        $helper = $fb->getRedirectLoginHelper();
+        $helper = $this->fb->getRedirectLoginHelper();
         $permissions = ['email']; // Optional permissions
         //dd('http://'.$_SERVER['HTTP_HOST'].'/callback');
         $loginUrl = $helper->getLoginUrl('http://'.$_SERVER['HTTP_HOST'].'/callback'/*musicsite.local/callback*/, $permissions);

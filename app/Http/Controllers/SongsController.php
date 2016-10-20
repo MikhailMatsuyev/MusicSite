@@ -10,7 +10,7 @@ use App\Song;
 use App\Album;
 use App\Artist;
 //use Session;
-use Cache;
+//use Cache;
 //use App\Http\Request;
 
 class SongsController extends Controller
@@ -32,6 +32,8 @@ class SongsController extends Controller
     public function index(Request $request)
     {
         
+//dd($request);
+
         $artists=[];//определить обязательно. Т.к. если не определить, то 
         // будет выскакивать ошибка если создали новую группу контактов и нажали
         // на просмотр.
@@ -48,25 +50,31 @@ class SongsController extends Controller
             // какой либо артист выбран    
     	}
         else{
-            //$songs=Song::orderBy("id", "desc")->paginate(5);
-            $songs = Cache::remember('songs', 60/3600, function()
-            {
-                return Song::orderBy("id", "desc")->paginate(5);
-            });
+            $songs=Song::orderBy("id", "desc")->paginate(5);
+			
+            /*$songs = Cache::remember('songs', 60/3600, function()
+            {*/
+                /*return Song::orderBy("id", "desc")->paginate(5);
+				/*
+            });*/
         }
             // не выбран ни один альбом или группа(т.е. при старте отобразятся все контакты 
             // в обратном порядке их добавления)    
-    	      
+    	//dd($songs);      
         foreach ($songs as $song)
         {   
+
             $artists[$song->id]  =   $this->getArtists($song->artist_id);
             $albums[$song->id]   =   $this->getAlbumsAll($song->group_id);
+            //var_dump($song->album->photo);  
         }
         
     	return view("songs.index", [
             'songs'     =>  $songs,
+            /*
             'artists'   =>  $artists,
             'albums'    =>  $albums,
+            */
     	]);
     }
 
@@ -126,6 +134,45 @@ class SongsController extends Controller
         return view("songs.edit", compact('albums', 'song', 'artists'));
     }
 
+    public function show($request1, $request2)
+    {
+        $artists=[];//определить обязательно. Т.к. если не определить, то 
+        // будет выскакивать ошибка если создали новую группу контактов и нажали
+        // на просмотр.
+        //Определяем, выбран ли пункт в меню слева
+        //$sql='Contact::where('group_id', $group_id)->orderBy("id", "desc")->paginate(5)';
+        //dd($request);
+        $albums=[];
+		//dd($request1);
+        if ( ($request1!="all"/*->get("album_id")*/ ) ) {
+            $songs=Song::where('album_id', $request1)->orderBy("id", "desc")->paginate(5);
+        } // какой либо альбом выбран    
+        
+        elseif ( ($request2!="all"/*->get("artist_id")*/ ) ){ 
+            $songs = Song::where('artist_id', $request2)->orderBy("id", "desc")->paginate(5);
+            // какой либо артист выбран    
+        }
+            
+         //dd($request1);     
+        foreach ($songs as $song)
+        {   
+            $artists[$song->id]  =   $this->getArtists($song->artist_id);
+            $albums[$song->id]   =   $this->getAlbumsAll($song->group_id);
+        }
+        
+        return view("songs.index", [
+            'songs'     =>  $songs,
+            /*'artists'   =>  $artists,
+            'albums'    =>  $albums,*/
+        ]);
+/*
+        $albums = $this->getAlbums();
+        $artists = $this->getArtistsAll();
+        $song = Song::find($id);
+        return view("songs.edit", compact('albums', 'song', 'artists'));
+        */
+    }
+
     public function store(Request $request)
     { 
         $this->validate($request, $this->rules);
@@ -154,21 +201,70 @@ class SongsController extends Controller
         $song = Song::find($id);
         $data = $this->getRequest($request);
         $song->update($data);
-        Cache::pull('songs');
+        //Cache::pull('songs');
         return redirect("songs")->with("message", "Song Updated!");   
     }
 
+
+    public function album(Request $request)
+    {
+        $artists=[];//определить обязательно. Т.к. если не определить, то 
+        // будет выскакивать ошибка если создали новую группу контактов и нажали
+        // на просмотр.
+        //Определяем, выбран ли пункт в меню слева
+        //$sql='Contact::where('group_id', $group_id)->orderBy("id", "desc")->paginate(5)';
+        //dd($id);
+        $albums=[];
+        if ( ($album_id = $request->get("album_id") ) ) {
+            $songs=Song::where('album_id', $album_id)->orderBy("id", "desc")->paginate(5);
+        } // какой либо альбом выбран    
+        
+        elseif ( ($artist_id = $request->get("artist_id") ) ){ 
+            $songs = Song::where('artist_id', $artist_id)->orderBy("id", "desc")->paginate(5);
+            // какой либо артист выбран    
+        }
+            
+              
+        foreach ($songs as $song)
+        {   
+            $artists[$song->id]  =   $this->getArtists($song->artist_id);
+            $albums[$song->id]   =   $this->getAlbumsAll($song->group_id);
+        }
+        
+        return view("songs.index", [
+            'songs'     =>  $songs,
+            'artists'   =>  $artists,
+            'albums'    =>  $albums,
+        ]);
+
+        $albums = $this->getAlbums();
+        $artists = $this->getArtistsAll();
+        $song = Song::find($id);
+        return view("songs.index", compact('albums', 'song', 'artists'));
+    }
+
+
     public function destroy($id)
     {
+        //
         $song = Song::find($id);
-
+        //редирект использовать после ajax нельзя, только JS сообщения
+/*
         if (!is_null($song->photo)){
             $file_path = $this->upload_dir . '/' . $song->photo;
             if (file_exists($file_path)) {unlink($file_path);}
         }
+*/        
         $song->delete();
-        Cache::forget('songs');
-        return redirect("songs")->with("message", "Song Deleted!");   
+//return redirect()->route('/');
+        //Cache::forget('songs');
+        //return redirect('')->with("message", "Song Deleted!");   
+        //return redirect("songs")->with("message", "Song Deleted!");   
+        //return $song->name;
+        //return view("songs.index");
     }
+
+
+
 }
 

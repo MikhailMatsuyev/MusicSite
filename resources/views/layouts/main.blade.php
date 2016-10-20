@@ -102,21 +102,31 @@
               <div class="col-md-3">
                   <div class="list-group">
                       <?php $selected_album = Request::get("album_id") ?>
-                      <a href="{{ route('songs.index') }}" class="list-group-item 
+                      <a href="{{ url('songs') }}" class="list-group-item 
                          {{ empty($selected_album) ? 'active' : '' }}">All Albums 
                           <span class="badge">{{ App\Song::count() }}</span></a>
                       <!--            Формирование списка альбомов в меню-->
+                      
                           @foreach (App\Album::all() as $album)
-                              <a href="{{ route('songs.index', ['album_id' => $album->id]) }}"class="list-group-item {{ $selected_album == $album->id ? 'active' : '' }}">
+                              
+
+							  
+							  <a href="{{ route('songs.show', ['album_id' => $album->id, 'artist_id' => 'all' ]  ) }}" class="list-group-item
+								  
+                              {{ $selected_album == $album->id ? 'active' : '' }}">
                                    <?php $photo = !is_null($album->photo) ? $album->photo : 'default.png' ?>
+
                                    {!! Html::image('uploads/' . $photo, $album->name, ['class' => 'media-object','width' => 20, 'height' => 20, 'style'=>'display:inline-block' ]) !!}
+
                                    {{ $album->name }} 
 
                                    <span class="badge">
                                         {{$album->songs->count()}}
                                    </span>
                               </a>
+                              
                           @endforeach
+                      
                   </div>
 
                   <div class="list-group">
@@ -128,7 +138,9 @@
 
                       <!--            Формирование списка исполнителей в меню-->
                       @foreach (App\Artist::all() as $artist)
-                          <a href="{{ route('songs.index', ['artist_id' => $artist->id]) }}"                     
+					  
+					  
+							<a href="{{ route('songs.show', [ 'album_id' => 'all', 'artist_id' => $artist->id ]  ) }}"
                               class="list-group-item {{ $selected_artist == $artist->id ? 'active' : '' }}">
                               {{ $artist->name }} 
                              <span class="badge">{{$artist->songs->count()}}</span>
@@ -156,5 +168,10 @@
 
       @yield('form-script')
     </body>
+
+
+    
+
+
 </html>
 
