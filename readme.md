@@ -1,4 +1,4 @@
-## Laravel 5.2, RESTfull api, Auth, upload IMG, curl_multi_*, multilingual, Facebook auth, captcha, paggination...
+## Laravel 5.2, Auth, upload IMG, curl_multi_*, multilingual, Facebook auth, captcha, paggination...
 ####The small music site
 ####Use Bootstrap
 
@@ -9,9 +9,16 @@
 ####Create view for artist filter or album filter. 
 ####Create ability for adding albums with fields: name, artist choice, year release and album image.
 ####User can create own playlist wit addition songs.
-####Create console command for parsing artists from eirst page http://www.artistdirect.com/music/pop/artists/877. Parse name, photo, short bio. Use curl_multi_* + to handle errors server responds.
+####Create console command for parsing artists from first page http://www.artistdirect.com/music/pop/artists/877. Parse name, photo, short bio. Use curl_multi_* + to handle errors server responds.
+####Create ability for multilingual use.
+####There are three users types: 
+guests - can browse a list of songs
+users - can create own playlists
+admins - can create the albums through a form
+####Create ability for removing songs by AJAX
 
-## Laravel 5.2, RESTfull api, Auth, upload IMG, curl_multi_*, multilingual, Facebook auth, captcha, paggination...
+
+## Laravel 5.2, Auth, upload IMG, curl_multi_*, multilingual, Facebook auth, captcha, paggination...
 
 ## 
 Эта задача представляет собой написание небольшое сайта на Laravel. Оформление сайта Bootstrap. 
