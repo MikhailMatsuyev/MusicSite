@@ -1,14 +1,13 @@
 ## Laravel 5.2, Auth, upload IMG, curl_multi_*, multilingual, Facebook auth, captcha, paggination...
-####The small music site
+
+###This app is a small music site.
 ####Use Bootstrap
 
-####User can browse artists, albums and create own playlists.
-####Create API interface for manage playlists.
-####Create registration forms with fields: login, password (2), name, captcha. After registration user gets on email key for API.
-####Create form for login in, facebook Auth.
-####Create view for artist filter or album filter. 
-####Create ability for adding albums with fields: name, artist choice, year release and album image.
-####User can create own playlist wit addition songs.
+####Create registration forms with fields: login, password (2), name, captcha. After registration user gets on email key for next registration.
+####Create form for login in and facebook Auth (FB API).
+####Create view for filter by artist or album. 
+####Create ability for adding albums with fields: name, artist choice, year of release and album image. There are form validation and CSRF protect.
+####Create view for browse songs only with pagination.
 ####Create console command for parsing artists from first page http://www.artistdirect.com/music/pop/artists/877. Parse name, photo, short bio. Use curl_multi_* + to handle errors server responds.
 ####Create ability for multilingual use.
 ####There are three users types: 
