@@ -12,9 +12,9 @@
 ####Create console command for parsing artists from first page http://www.artistdirect.com/music/pop/artists/877. Parse name, photo, short bio. Use curl_multi_* + to handle errors server responds.
 ####Create ability for multilingual use.
 ####There are three users types: 
-guests - can browse a list of songs
-users - can create own playlists
-admins - can create the albums through a form
+####1.guests - can browse a list of songs
+####2.users - can create own playlists too
+####3.admins - can create the albums through a form too
 ####Create ability for removing songs by AJAX
 
 
